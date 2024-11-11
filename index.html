@@ -1,0 +1,42 @@
+<head>
+         <meta charset="UTF-8">
+         <title>Solana Wallet with Passkey</title>
+         <!-- Include UUID library -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+         <script type="module">
+           import * as web3 from 'https://cdn.jsdelivr.net/npm/@solana/web3.js/+esm';
+           import * as passkeys from 'https://cdn.jsdelivr.net/npm/@passkeys/core/+esm';
+       
+           async function getPasskey() {
+             try {
+               const passkey = await passkeys.create({
+                 user: { id: 'unique-user-id', name: 'user@example.com' },
+                 challenge: uuid.v4(), // Use UUID for unique challenge
+               });
+               return passkey;
+             } catch (error) {
+               console.error('Error generating or retrieving passkey:', error);
+             }
+           }
+       
+           async function deriveSolanaPrivateKey(passkey) {
+             const passkeyData = passkey.id + passkey.rawId;
+             const encoder = new TextEncoder();
+             const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(passkeyData));
+             return new Uint8Array(hashBuffer).slice(0, 32);
+           }
+       
+           async function initializeSolanaWallet() {
+             const passkey = await getPasskey();
+             if (!passkey) return;
+       
+             const privateKeyBuffer = await deriveSolanaPrivateKey(passkey);
+             const keypair = web3.Keypair.fromSecretKey(privateKeyBuffer);
+       
+             console.log('Solana Wallet Address:', keypair.publicKey.toString());
+           }
+       
+           window.addEventListener('DOMContentLoaded', initializeSolanaWallet);
+         </script>
+       </head>
+       
