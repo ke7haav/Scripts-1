@@ -7,7 +7,7 @@ const ethers = require('ethers');
 // You can specify the entropy strength if needed (default is 128 bits)
 // const mnemonic = ethers.Wallet.createRandom().mnemonic.phrase;
 
-const walletMnemonic = ethers.Wallet.fromMnemonic("culture client whip learn kit cruel insane fluid school farm staff legal");
+const walletMnemonic = ethers.Wallet.fromMnemonic("12 word mnemonic");
 
 console.log(walletMnemonic);
 console.log(walletMnemonic.address);

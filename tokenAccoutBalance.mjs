@@ -13,7 +13,10 @@ import {
        const mintPublicKey1 = new PublicKey("498bK2F1fCNPsHWdTFiXr8dw51p3SAC4tHPzgRpDUo3j");
        
        // The specific token account address
-       const tokenAccountAddress = new PublicKey("6Npj7SEtonjzpWuVi6GMUtfrAG9HsgTmCMgkUYMjBh3e");
+      //  const tokenAccountAddress = new PublicKey("6Npj7SEtonjzpWuVi6GMUtfrAG9HsgTmCMgkUYMjBh3e");
+       const tokenAccountAddress = new PublicKey("CXF61iSwXdrzA829HBNpCmrLb4qPwpGfKGV6yE7yBYgD");
+
+      
        
        async function checkSpecificTokenAccountBalance() {
          try {
